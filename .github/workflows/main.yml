@@ -17,7 +17,12 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.issues.listForRepo({
+            const options = github.issues.listForRepo.endpoint.merge({
               owner: 'af12066',
               repo: 'github-actions'
-            })
+            });
+            const issues = await github.paginate(options)
+
+            for (const issue of issues) {
+              console.log(issue);
+            }
