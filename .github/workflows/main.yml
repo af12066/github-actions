@@ -29,7 +29,7 @@ jobs:
               const lastUpdateDatetime = new Date(issue.updated_at);
               const elapsedDay = Math.floor((currentDatetime - lastUpdateDatetime) / 1000 / 60 / 60 / 24);
               if (elapsedDay === 0) {
-                issues.createComment({
+                github.issues.createComment({
                   owner: 'af12066',
                   repo: 'github-actions',
                   issue_number: issue.number,
