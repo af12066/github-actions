@@ -23,7 +23,17 @@ jobs:
               state: 'open'
             });
             const issues = await github.paginate(options)
+            const currentDatetime = new Date();
 
             for (const issue of issues) {
-              console.log(issue);
+              const lastUpdateDatetime = new Date(issue.updated_at);
+              const elapsedDay = Math.floor((currentDatetime - lastUpdateDatetime) / 1000 / 60 / 60 / 24);
+              if (elapsedDay === 0) {
+                issues.createComment({
+                  owner: 'af12066',
+                  repo: 'github-actions',
+                  issue_number: issue.number,
+                  body: 'post from github actions'
+                });
+              }
             }
