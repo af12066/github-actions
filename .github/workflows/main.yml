@@ -34,7 +34,7 @@ jobs:
                   owner: 'af12066',
                   repo: 'github-actions',
                   issue_number: issue.number,
-                  body: 'post from github actions'
+                  body: `@${issue.user.login} post from github actions`
                 });
               }
             }
