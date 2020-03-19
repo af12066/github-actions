@@ -3,7 +3,7 @@ name: 'Issue Reminder'
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '0 0 */1 * *'
 
 jobs:
   comment:
@@ -26,11 +26,13 @@ jobs:
               const elapsedDay = Math.floor((currentDatetime - lastUpdateDatetime) / 1000 / 60 / 60 / 24);
               const isIssue = issue.pull_request === undefined;
               if (elapsedDay > DAY_THRESHOLD && isIssue) {
+                /*
                 await github.issues.createComment({
                   owner: 'af12066',
                   repo: 'github-actions',
                   issue_number: issue.number,
                   body: `@${issue.user.login} このIssueは60日間放置されています。まだ必要なIssueですか？不要であればCloseを検討してみてください！`
                 });
+                */
               }
             }
