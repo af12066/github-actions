@@ -1,14 +1,10 @@
-# This is a basic workflow to help you get started with Actions
+# 長い間放置されているIssueに対して消化を促すaction
+name: 'Issue Reminder'
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request 
-# events but only for the master branch
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '0 2 */1 * *'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   comment:
     runs-on: ubuntu-latest
@@ -24,17 +20,17 @@ jobs:
             });
             const issues = await github.paginate(options)
             const currentDatetime = new Date();
-
+            const DAY_THRESHOLD = -1;
             for (const issue of issues) {
               const lastUpdateDatetime = new Date(issue.updated_at);
               const elapsedDay = Math.floor((currentDatetime - lastUpdateDatetime) / 1000 / 60 / 60 / 24);
               const isIssue = issue.pull_request === undefined;
-              if (elapsedDay === 0 && isIssue) {
+              if (elapsedDay > DAY_THRESHOLD && isIssue) {
                 await github.issues.createComment({
                   owner: 'af12066',
                   repo: 'github-actions',
                   issue_number: issue.number,
-                  body: `@${issue.user.login} post from github actions`
+                  body: `@${issue.user.login} このIssueは60日間放置されています。まだ必要なIssueですか？不要であればCloseを検討してみてください！`
                 });
               }
             }
