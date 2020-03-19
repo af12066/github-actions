@@ -3,7 +3,7 @@ name: 'Issue Reminder'
 
 on:
   schedule:
-    - cron: '0 2 */1 * *'
+    - cron: '*/1 * * * *'
 
 jobs:
   comment:
