@@ -28,7 +28,8 @@ jobs:
             for (const issue of issues) {
               const lastUpdateDatetime = new Date(issue.updated_at);
               const elapsedDay = Math.floor((currentDatetime - lastUpdateDatetime) / 1000 / 60 / 60 / 24);
-              if (elapsedDay === 0) {
+              const isIssue = issue.pull_request === undefined;
+              if (elapsedDay === 0 && isIssue) {
                 github.issues.createComment({
                   owner: 'af12066',
                   repo: 'github-actions',
