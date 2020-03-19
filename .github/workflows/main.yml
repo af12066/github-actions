@@ -19,7 +19,8 @@ jobs:
           script: |
             const options = github.issues.listForRepo.endpoint.merge({
               owner: 'af12066',
-              repo: 'github-actions'
+              repo: 'github-actions',
+              state: 'open'
             });
             const issues = await github.paginate(options)
 
