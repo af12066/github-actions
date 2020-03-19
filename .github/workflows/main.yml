@@ -18,6 +18,6 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.issues.listForRepo({
-              'af12066',
-              'github-actions'
+              owner: 'af12066',
+              repo: 'github-actions'
             })
